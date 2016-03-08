@@ -83,6 +83,7 @@ for i = 1:length(t)
         xlabel('Distance [km]','Fontsize',12)
         ylabel('Elevation [m]','Fontsize',12)
         ylim([0 4000]);
+        legend('Total Elevation','Bedrock Elevation');
         %M(:,nframe) = getframe(gcf);
         pause(0.02)  
         hold off    
@@ -90,3 +91,9 @@ for i = 1:length(t)
     end       
  
 end
+%% plotting figure(2)
+figure(2)
+plot(x/1000,H,'b','linewidth',2);
+xlabel('distance (km)','fontsize',12);
+ylabel('discharge','fontsize',12);
+legend('hydrograph(?)');
