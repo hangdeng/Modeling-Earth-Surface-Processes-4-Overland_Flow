@@ -24,13 +24,13 @@ dt = 0.02;
 t = 0:dt:tmax;
 
 % distance steps
-xmax = 5000;
-dx = 100;
+xmax = 1e5;
+dx = 1000;
 x = 0:dx:xmax;
 
 % initial topography
-zmax = 100; % meter
-S = 0.025; % slope
+zmax = 1000; % meter
+S = 0.01; % slope
 z = zmax - S*x; 
 
 % Creating arrays
@@ -65,7 +65,7 @@ for i = 1:length(t)
     dQdx = diff(Q)/dx;
     
     % H change with time
-    dHdt = -dQdx + R*dt;% - I;
+    dHdt = -dQdx + R*dt; %- I;
     dHdt = [dHdt(1) dHdt dHdt(end)];
     % update H
     H = H + h_init - dHdt.*dt;
@@ -77,11 +77,12 @@ for i = 1:length(t)
     if rem(t(i),tplot)==0
         disp(['Time: ' num2str(t(i))]);
         figure(1)
-        plot(x,Z,'r','linewidth',2);
+        plot(x/1000,Z,'r','linewidth',2);
         hold on
-        plot(x,z,'g--','linewidth',1);
+        plot(x/1000,z,'g--','linewidth',1);
         xlabel('Distance [km]','Fontsize',12)
         ylabel('Elevation [m]','Fontsize',12)
+        ylim([0 4000]);
         %M(:,nframe) = getframe(gcf);
         pause(0.02)  
         hold off    
@@ -89,9 +90,3 @@ for i = 1:length(t)
     end       
  
 end
- 
-%% plotting figure(2)
-figure(2)
-plot(x,H,'b','linewidth',2);
-xlabel('time (yr)','fontsize',12);
-ylabel('discharge','fontsize',12);
